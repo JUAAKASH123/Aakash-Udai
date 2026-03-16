@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Projects — Aakash Udai</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#F5F4F0; --cream2:#EDECE7; --navy:#0A1628; --navy2:#132035;
+  --blue:#1D6FEB; --blue2:#1558C0; --blue-lt:#E8F0FD;
+  --muted:#6B7280; --border:#DDD9D0; --white:#FFFFFF;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
+
+/* TOPBAR */
+#topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(10,22,40,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;padding:0 6%;z-index:100;}
+.topbar-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:white;text-decoration:none;letter-spacing:.05em;}
+.topbar-logo span{color:var(--blue);}
+.topbar-back{display:inline-flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.6);font-size:.82rem;font-weight:500;text-decoration:none;letter-spacing:.04em;border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:.45rem 1rem;transition:all .25s;}
+.topbar-back:hover{color:white;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.05);}
+
+/* HERO */
+#page-hero{background:var(--navy);padding:120px 6% 90px;position:relative;overflow:hidden;}
+#page-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 70% 80% at 85% 50%,rgba(29,111,235,.13) 0%,transparent 70%);pointer-events:none;}
+#page-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--cream));pointer-events:none;}
+.ph-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;opacity:0;animation:fadeUp .7s .1s var(--ease) forwards;}
+.ph-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue);border-radius:2px;display:inline-block;}
+.ph-title{font-family:'DM Serif Display',serif;font-size:clamp(2.6rem,5vw,4.5rem);line-height:1.05;color:white;letter-spacing:-.02em;max-width:700px;opacity:0;animation:fadeUp .8s .2s var(--ease) forwards;}
+.ph-title em{font-style:italic;color:var(--blue);}
+.ph-sub{margin-top:1.2rem;font-size:.95rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.7;max-width:520px;opacity:0;animation:fadeUp .8s .35s var(--ease) forwards;}
+.ph-stats{margin-top:2.5rem;display:flex;gap:3rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .5s var(--ease) forwards;}
+.ph-stat-val{font-family:'DM Serif Display',serif;font-size:2rem;color:white;line-height:1;}
+.ph-stat-label{font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* FILTER */
+#filter-bar{position:sticky;top:64px;z-index:50;background:rgba(245,244,240,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 6%;display:flex;align-items:center;gap:.5rem;overflow-x:auto;white-space:nowrap;height:56px;}
+#filter-bar::-webkit-scrollbar{display:none;}
+.filter-btn{padding:.45rem 1.1rem;border-radius:99px;font-size:.78rem;font-weight:500;letter-spacing:.03em;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.filter-btn:hover{color:var(--navy);border-color:rgba(10,22,40,.3);}
+.filter-btn.active{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* MAIN */
+#projects-wrap{padding:60px 6% 80px;max-width:1200px;margin:0 auto;}
+
+/* PROJECT BLOCK */
+.proj-block{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:2.5rem;opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease),box-shadow .3s,border-color .3s;}
+.proj-block.visible{opacity:1;transform:translateY(0);}
+.proj-block:hover{box-shadow:0 20px 60px rgba(10,22,40,.1);border-color:rgba(29,111,235,.2);}
+.proj-bar{height:4px;}
+.proj-bar.cv{background:linear-gradient(90deg,#1D6FEB,#06B6D4);}
+.proj-bar.ai{background:linear-gradient(90deg,#7C3AED,#1D6FEB);}
+.proj-bar.ml{background:linear-gradient(90deg,#059669,#1D6FEB);}
+.proj-bar.nlp{background:linear-gradient(90deg,#D97706,#EF4444);}
+.proj-bar.web{background:linear-gradient(90deg,#1D6FEB,#059669);}
+.proj-body{padding:2.4rem 2.8rem;}
+
+/* Header */
+.proj-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.proj-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);background:var(--blue-lt);padding:.25rem .75rem;border-radius:4px;margin-bottom:.8rem;}
+.proj-title{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);line-height:1.2;color:var(--navy);letter-spacing:-.01em;}
+.proj-title em{font-style:italic;color:var(--blue);}
+.proj-subtitle{margin-top:.4rem;font-size:.85rem;color:var(--muted);font-weight:300;font-style:italic;}
+.proj-metrics{display:flex;gap:.8rem;flex-wrap:wrap;flex-shrink:0;}
+.proj-metric-pill{display:flex;flex-direction:column;align-items:center;padding:.8rem 1.2rem;background:var(--cream);border:1px solid var(--border);border-radius:10px;min-width:90px;}
+.pmp-val{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);line-height:1;}
+.pmp-label{font-size:.62rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.25rem;}
+
+/* Overview */
+.proj-overview{font-size:.9rem;line-height:1.85;color:var(--muted);font-weight:300;margin-bottom:2rem;}
+.proj-overview strong{color:var(--navy);font-weight:600;}
+
+/* Two columns */
+.proj-cols{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;}
+@media(max-width:700px){.proj-cols{grid-template-columns:1fr;}}
+
+/* Section title */
+.sec-title{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Feature list */
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.feat-list li{display:flex;align-items:flex-start;gap:.65rem;font-size:.84rem;color:var(--muted);line-height:1.6;font-weight:300;}
+.feat-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:.45rem;}
+.feat-list li strong{color:var(--navy);font-weight:600;}
+
+/* Pipeline */
+.pipeline{display:flex;flex-direction:column;gap:.5rem;}
+.pipe-step{display:flex;align-items:flex-start;gap:.9rem;padding:.7rem .9rem;background:var(--cream);border-radius:8px;font-size:.82rem;color:var(--muted);line-height:1.5;}
+.pipe-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:white;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+.pipe-text strong{color:var(--navy);font-weight:600;display:block;margin-bottom:.1rem;}
+
+/* Tech stack */
+.tech-grid{display:flex;flex-wrap:wrap;gap:.5rem;}
+.tech-tag{padding:.35rem .9rem;border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:500;color:var(--navy);background:var(--cream);transition:all .2s;}
+.tech-tag:hover{background:var(--blue-lt);border-color:rgba(29,111,235,.3);color:var(--blue2);}
+
+/* Challenge list */
+.challenge-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.challenge-list li{display:flex;align-items:flex-start;gap:.65rem;font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:300;}
+.challenge-list li::before{content:'⚡';font-size:.75rem;flex-shrink:0;margin-top:.1rem;}
+
+/* Impact band */
+.impact-band{background:var(--navy);border-radius:10px;padding:1.4rem 1.8rem;margin-top:2rem;display:flex;align-items:flex-start;gap:1rem;}
+.impact-icon{font-size:1.6rem;flex-shrink:0;margin-top:.1rem;}
+.impact-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem;}
+.impact-body{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.7;font-weight:300;}
+.impact-body strong{color:white;font-weight:500;}
+
+/* Video */
+.video-label{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+.video-label::before{content:'▶';color:#FF0000;font-size:.7rem;}
+.video-wrap{margin:0 0 2rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#000;position:relative;aspect-ratio:16/9;}
+.video-wrap iframe{width:100%;height:100%;display:block;}
+
+/* FOOTER */
+#page-footer{background:var(--navy);padding:3rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.06);}
+#page-footer p{font-size:.75rem;color:rgba(255,255,255,.25);font-weight:300;}
+.footer-back{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;background:var(--blue);color:white;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.05em;border-radius:6px;text-decoration:none;transition:all .25s;}
+.footer-back:hover{background:var(--blue2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(29,111,235,.4);}
+
+/* PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(29,111,235,.15);z-index:300;}
+#progress-fill{height:100%;background:var(--blue);width:0%;transition:width .1s linear;}
+
+/* BACK TOP */
+#back-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--navy);color:white;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;text-decoration:none;opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:200;}
+#back-top.visible{opacity:1;pointer-events:all;}
+#back-top:hover{background:var(--blue);border-color:var(--blue);transform:translateY(-3px);}
+
+@media(max-width:768px){.proj-body{padding:1.6rem;}.proj-head{flex-direction:column;}.ph-stats{gap:1.5rem;}}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<header id="topbar">
+  <a href="index.html" class="topbar-logo">AK<span>.</span></a>
+  <a href="index.html" class="topbar-back">← Back to Portfolio</a>
+</header>
+
+<section id="page-hero">
+  <div class="ph-eyebrow">Portfolio</div>
+  <h1 class="ph-title">All <em>Projects</em></h1>
+  <p class="ph-sub">Complete breakdowns of my AI engineering, computer vision, NLP, and full-stack development work — including architecture, pipelines, and results.</p>
+  <div class="ph-stats">
+    <div class="ph-stat"><div class="ph-stat-val">5</div><div class="ph-stat-label">Projects</div></div>
+    <div class="ph-stat"><div class="ph-stat-val">92%</div><div class="ph-stat-label">CNN Accuracy</div></div>
+    <div class="ph-stat"><div class="ph-stat-val">87%</div><div class="ph-stat-label">NLP F1 Score</div></div>
+    <div class="ph-stat"><div class="ph-stat-val">30fps</div><div class="ph-stat-label">Real-Time Vision</div></div>
+  </div>
+</section>
+
+<div id="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Projects</button>
+  <button class="filter-btn" data-filter="cv">Computer Vision</button>
+  <button class="filter-btn" data-filter="ai">Generative AI</button>
+  <button class="filter-btn" data-filter="nlp">NLP</button>
+  <button class="filter-btn" data-filter="ml">Deep Learning</button>
+  <button class="filter-btn" data-filter="web">Full Stack</button>
+</div>
+
+<main id="projects-wrap">
+
+  <!-- ① VirtuFit -->
+  <article class="proj-block" data-category="cv">
+    <div class="proj-bar cv"></div>
+    <div class="proj-body">
+      <div class="proj-head">
+        <div>
+          <div class="proj-tag">🎥 Computer Vision · Real-Time AI</div>
+          <div class="proj-title">VirtuFit – <em>AI Virtual Dressing Room</em></div>
+          <div class="proj-subtitle">Real-time pose-based virtual try-on with hand gesture controls</div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric-pill"><div class="pmp-val">30fps</div><div class="pmp-label">Real-Time</div></div>
+          <div class="proj-metric-pill"><div class="pmp-val">~90%</div><div class="pmp-label">Alignment</div></div>
+        </div>
+      </div>
+
+      <div class="video-label">Live Demo Video</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/aOOa4nPDDWI" title="VirtuFit Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
+      <p class="proj-overview"><strong>VirtuFit</strong> is a real-time AI-powered virtual dressing room that lets users try on clothes digitally via a live webcam feed. The system uses <strong>computer vision and pose estimation</strong> to detect body landmarks and dynamically overlay clothing aligned to the user's body. By combining pose tracking, gesture interaction, and image processing, it creates an interactive augmented reality-style try-on experience.</p>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Key Features</div>
+          <ul class="feat-list">
+            <li><strong>Real-Time Virtual Try-On</strong> — Clothing dynamically overlaid via live webcam</li>
+            <li><strong>AI Pose Detection</strong> — MediaPipe Pose tracks shoulder and hip positions</li>
+            <li><strong>Dynamic Cloth Alignment</strong> — Size and position from shoulder width & torso length</li>
+            <li><strong>Hand Gesture Controls</strong> — Switch outfits with MediaPipe Hands gestures</li>
+            <li><strong>Frame Stabilization</strong> — Smoothing techniques reduce jitter across frames</li>
+            <li><strong>Alpha Blending</strong> — Clothes seamlessly blended using OpenCV</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">System Workflow</div>
+          <div class="pipeline">
+            <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-text"><strong>Pose Detection</strong>MediaPipe detects body landmarks from webcam</div></div>
+            <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-text"><strong>Anchor Calculation</strong>Shoulder midpoint used as clothing anchor</div></div>
+            <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-text"><strong>Dynamic Scaling</strong>Width & height from body proportions</div></div>
+            <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-text"><strong>Cloth Alignment</strong>Resized cloth placed with vertical offset</div></div>
+            <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-text"><strong>Frame Smoothing</strong>Values smoothed across frames</div></div>
+            <div class="pipe-step"><div class="pipe-num">6</div><div class="pipe-text"><strong>Rendering</strong>Alpha-blended onto video via OpenCV</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Technical Challenges Solved</div>
+          <ul class="challenge-list">
+            <li>Jitter reduction in real-time pose tracking</li>
+            <li>Dynamic cloth resizing from body proportions</li>
+            <li>Alignment drift correction across frames</li>
+            <li>Gesture false-positive handling</li>
+            <li>Maintaining low latency for real-time interaction</li>
+            <li>Hand detection failure in low-light conditions</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Technologies Used</div>
+          <div class="tech-grid">
+            <span class="tech-tag">Python</span><span class="tech-tag">Django</span>
+            <span class="tech-tag">OpenCV</span><span class="tech-tag">MediaPipe Pose</span>
+            <span class="tech-tag">MediaPipe Hands</span><span class="tech-tag">NumPy</span>
+            <span class="tech-tag">Computer Vision</span><span class="tech-tag">Real-Time Processing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-band">
+        <div class="impact-icon">🎯</div>
+        <div class="impact-text">
+          <div class="impact-label">Impact & Learnings</div>
+          <div class="impact-body">Delivers a <strong>responsive AI virtual try-on experience</strong> demonstrating how computer vision and ML apply to interactive fashion technology. Strengthened real-time CV pipelines, frame stabilization, and human–AI interaction design.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ② AI Lesson Plan Creator -->
+  <article class="proj-block" data-category="ai">
+    <div class="proj-bar ai"></div>
+    <div class="proj-body">
+      <div class="proj-head">
+        <div>
+          <div class="proj-tag">🤖 Generative AI · RAG</div>
+          <div class="proj-title">AI Teacher <em>Lesson Plan Creator</em></div>
+          <div class="proj-subtitle">RAG-powered lesson plan generation with hybrid search & cross-encoder re-ranking</div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric-pill"><div class="pmp-val">RAG</div><div class="pmp-label">Architecture</div></div>
+          <div class="proj-metric-pill"><div class="pmp-val">Hybrid</div><div class="pmp-label">Search</div></div>
+        </div>
+      </div>
+
+      <p class="proj-overview">The <strong>AI Teacher Lesson Plan Creator</strong> is a Retrieval-Augmented Generation (RAG) system that automatically generates structured lesson plans from educational PDFs and textbooks. It retrieves relevant content via <strong>hybrid search (keyword + semantic)</strong> and generates context-aware lesson plans using Gemini LLMs. Teachers enter the subject, class, and topic — the system produces plans with objectives, activities, explanations, and assessments.</p>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Key Features</div>
+          <ul class="feat-list">
+            <li><strong>Automated Lesson Generation</strong> — Full plans with objectives, activities & assessments</li>
+            <li><strong>RAG Pipeline</strong> — Document retrieval combined with generative AI</li>
+            <li><strong>Hybrid Search</strong> — Keyword + semantic vector search for accurate retrieval</li>
+            <li><strong>Cross-Encoder Re-Ranking</strong> — Better contextual accuracy before generation</li>
+            <li><strong>Document Knowledge Base</strong> — Upload PDFs converted to searchable embeddings</li>
+            <li><strong>FastAPI Backend</strong> — Scalable APIs for document processing and generation</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">RAG Pipeline</div>
+          <div class="pipeline">
+            <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-text"><strong>Document Upload</strong>Educational PDFs uploaded to system</div></div>
+            <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-text"><strong>Text Chunking</strong>Documents split into efficient retrieval chunks</div></div>
+            <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-text"><strong>Embedding Creation</strong>Transformer models convert chunks to vectors</div></div>
+            <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-text"><strong>Vector Storage</strong>Embeddings stored in ChromaDB</div></div>
+            <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-text"><strong>Hybrid Retrieval</strong>Keyword + semantic similarity search</div></div>
+            <div class="pipe-step"><div class="pipe-num">6</div><div class="pipe-text"><strong>Re-rank + Generate</strong>Cross-encoder ranks → Gemini generates plan</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Challenges & Learnings</div>
+          <ul class="challenge-list">
+            <li>Designing an efficient RAG pipeline for educational retrieval</li>
+            <li>Implementing hybrid search to improve retrieval accuracy</li>
+            <li>Integrating cross-encoder re-ranking for better relevance</li>
+            <li>Managing vector embeddings and scalable search</li>
+            <li>Combining retrieval pipelines with generative models</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Technologies Used</div>
+          <div class="tech-grid">
+            <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">LangChain</span><span class="tech-tag">ChromaDB</span>
+            <span class="tech-tag">Gemini LLM</span><span class="tech-tag">Hugging Face</span>
+            <span class="tech-tag">Django</span><span class="tech-tag">HTML/CSS/JS</span>
+            <span class="tech-tag">NLP</span><span class="tech-tag">RAG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-band">
+        <div class="impact-icon">📚</div>
+        <div class="impact-text">
+          <div class="impact-label">Impact</div>
+          <div class="impact-body">Significantly <strong>reduces the time teachers spend creating lesson plans</strong> and demonstrates how AI-powered retrieval and generation systems can support real educational workflows at scale.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ③ AutoBid -->
+  <article class="proj-block" data-category="web">
+    <div class="proj-bar web"></div>
+    <div class="proj-body">
+      <div class="proj-head">
+        <div>
+          <div class="proj-tag">🌐 Full Stack · Machine Learning</div>
+          <div class="proj-title">AutoBid – <em>Online Car Auction Platform</em></div>
+          <div class="proj-subtitle">Full-stack web auction app with ML-powered used car price prediction</div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric-pill"><div class="pmp-val">ML</div><div class="pmp-label">Price Pred.</div></div>
+          <div class="proj-metric-pill"><div class="pmp-val">Live</div><div class="pmp-label">Bidding</div></div>
+        </div>
+      </div>
+
+      <p class="proj-overview"><strong>AutoBid</strong> is a full-stack web application for real-time car auctions. Sellers list vehicles with detailed specifications while buyers bid and track auction activity. The platform integrates a <strong>machine learning model for used car price prediction</strong> — helping buyers estimate fair market value before placing bids.</p>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Key Features</div>
+          <ul class="feat-list">
+            <li><strong>Online Car Auctions</strong> — Live bidding with real-time updates</li>
+            <li><strong>Proxy Bidding System</strong> — Auto-increases bids up to user's max amount</li>
+            <li><strong>ML Price Prediction</strong> — Estimates value from brand, year, fuel & mileage</li>
+            <li><strong>Car Listing System</strong> — Sellers upload images and full vehicle specs</li>
+            <li><strong>Auction Timer</strong> — Countdown timer controls duration per listing</li>
+            <li><strong>Responsive UI</strong> — Mobile-friendly design for bidding anywhere</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">System Workflow</div>
+          <div class="pipeline">
+            <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-text"><strong>Car Listing</strong>Sellers upload details, images & starting bid</div></div>
+            <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-text"><strong>Auction Creation</strong>Time-based auction created per listing</div></div>
+            <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-text"><strong>Price Prediction</strong>ML model estimates market value</div></div>
+            <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-text"><strong>Bidding</strong>Manual or proxy bidding by users</div></div>
+            <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-text"><strong>Auction End</strong>Highest bidder wins when timer expires</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Challenges & Learnings</div>
+          <ul class="challenge-list">
+            <li>Designing a real-time bidding workflow</li>
+            <li>Implementing proxy bidding logic correctly</li>
+            <li>Integrating ML predictions into a web app</li>
+            <li>Managing authentication and auction state</li>
+            <li>Building a responsive full-stack app end to end</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Technologies Used</div>
+          <div class="tech-grid">
+            <span class="tech-tag">Python</span><span class="tech-tag">Django</span>
+            <span class="tech-tag">HTML</span><span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span><span class="tech-tag">NumPy</span>
+            <span class="tech-tag">Pandas</span><span class="tech-tag">Scikit-learn</span>
+            <span class="tech-tag">Machine Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-band">
+        <div class="impact-icon">🚗</div>
+        <div class="impact-text">
+          <div class="impact-label">Impact</div>
+          <div class="impact-body">Demonstrates how <strong>ML and full-stack web development combine</strong> to build intelligent e-commerce systems that help users make informed bidding decisions through AI-powered price estimation.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ④ Alzheimer's CNN -->
+  <article class="proj-block" data-category="ml">
+    <div class="proj-bar ml"></div>
+    <div class="proj-body">
+      <div class="proj-head">
+        <div>
+          <div class="proj-tag">🧠 Deep Learning · Medical AI</div>
+          <div class="proj-title">Alzheimer's MRI <em>Prediction (CNN)</em></div>
+          <div class="proj-subtitle">Multi-class Alzheimer's stage detection from brain MRI scans</div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric-pill"><div class="pmp-val">92%</div><div class="pmp-label">Val Accuracy</div></div>
+          <div class="proj-metric-pill"><div class="pmp-val">−14%</div><div class="pmp-label">Overfitting</div></div>
+        </div>
+      </div>
+
+      <p class="proj-overview">This project detects <strong>Alzheimer's disease stages from MRI brain scans</strong> using deep learning. A CNN was developed to classify MRI images into multiple disease stage categories, using <strong>data augmentation and regularization</strong> to improve generalization and reduce overfitting — achieving 92% validation accuracy.</p>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Key Features</div>
+          <ul class="feat-list">
+            <li><strong>Medical Image Classification</strong> — Multi-class MRI scan staging</li>
+            <li><strong>CNN Architecture</strong> — Convolutional layers for spatial feature extraction</li>
+            <li><strong>Data Augmentation</strong> — Rotation, flipping, scaling increase dataset diversity</li>
+            <li><strong>Overfitting Reduction</strong> — 14% improvement without extra model complexity</li>
+            <li><strong>92% Validation Accuracy</strong> on multi-class classification</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Model Pipeline</div>
+          <div class="pipeline">
+            <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-text"><strong>Dataset Preparation</strong>MRI images preprocessed and resized</div></div>
+            <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-text"><strong>Data Augmentation</strong>Rotation, flipping, scaling applied</div></div>
+            <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-text"><strong>Feature Extraction</strong>CNN layers learn spatial MRI patterns</div></div>
+            <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-text"><strong>Classification</strong>FC layers predict Alzheimer's stage</div></div>
+            <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-text"><strong>Evaluation</strong>Validation accuracy and loss tracked</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Technologies Used</div>
+          <div class="tech-grid">
+            <span class="tech-tag">TensorFlow</span><span class="tech-tag">Keras</span>
+            <span class="tech-tag">NumPy</span><span class="tech-tag">Matplotlib</span>
+            <span class="tech-tag">CNN</span><span class="tech-tag">Transfer Learning</span>
+            <span class="tech-tag">Data Augmentation</span>
+          </div>
+        </div>
+        <div>
+          <div class="sec-title">Key Results</div>
+          <ul class="feat-list">
+            <li><strong>92% validation accuracy</strong> on multi-class MRI classification</li>
+            <li><strong>14% reduction in overfitting</strong> via targeted augmentation</li>
+            <li>Stable training curves with no significant divergence</li>
+            <li>Generalizes well across unseen MRI distributions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="impact-band">
+        <div class="impact-icon">🏥</div>
+        <div class="impact-text">
+          <div class="impact-label">Impact</div>
+          <div class="impact-body">Demonstrates how <strong>deep learning can assist medical diagnosis</strong> by analyzing brain MRI scans, detecting Alzheimer's stages with high accuracy — showing real-world potential of AI in clinical decision support.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ⑤ Twitter Sentiment -->
+  <article class="proj-block" data-category="nlp">
+    <div class="proj-bar nlp"></div>
+    <div class="proj-body">
+      <div class="proj-head">
+        <div>
+          <div class="proj-tag">💬 NLP · Transformer Fine-Tuning</div>
+          <div class="proj-title">Twitter <em>Sentiment Analysis</em></div>
+          <div class="proj-subtitle">DistilBERT fine-tuned with LoRA for efficient multi-class sentiment classification</div>
+        </div>
+        <div class="proj-metrics">
+          <div class="proj-metric-pill"><div class="pmp-val">87%</div><div class="pmp-label">F1 Score</div></div>
+          <div class="proj-metric-pill"><div class="pmp-val">LoRA</div><div class="pmp-label">Optimized</div></div>
+        </div>
+      </div>
+
+      <p class="proj-overview">Multi-class sentiment analysis on Twitter data using <strong>DistilBERT fine-tuned with LoRA (Low-Rank Adaptation)</strong> for parameter-efficient training. The system classifies tweets into positive, negative, and neutral sentiment — achieving 87% F1 score while keeping compute and memory requirements minimal.</p>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Key Features</div>
+          <ul class="feat-list">
+            <li><strong>DistilBERT Transformer</strong> — Lightweight model for accurate classification</li>
+            <li><strong>LoRA Fine-Tuning</strong> — Reduces training cost via low-rank matrix injection</li>
+            <li><strong>Multi-Class Sentiment</strong> — Positive, negative, and neutral detection</li>
+            <li><strong>87% F1 Score</strong> — Strong performance on real-world Twitter data</li>
+            <li><strong>Efficient Training</strong> — Minimal compute overhead vs full fine-tuning</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Model Pipeline</div>
+          <div class="pipeline">
+            <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-text"><strong>Data Collection</strong>Labeled Twitter sentiment dataset</div></div>
+            <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-text"><strong>Text Preprocessing</strong>Tokenization, cleaning, normalization</div></div>
+            <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-text"><strong>Embedding</strong>DistilBERT generates contextual embeddings</div></div>
+            <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-text"><strong>LoRA Fine-Tuning</strong>Parameter-efficient adaptation applied</div></div>
+            <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-text"><strong>Classification</strong>Model predicts sentiment category</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-cols">
+        <div>
+          <div class="sec-title">Why LoRA?</div>
+          <ul class="feat-list">
+            <li>Injects <strong>low-rank matrices</strong> into transformer layers — far fewer trainable params</li>
+            <li>Achieves comparable accuracy to full fine-tuning at a <strong>fraction of compute cost</strong></li>
+            <li>Ideal for resource-constrained environments without dedicated GPU clusters</li>
+            <li>Enables fast experimentation and iteration cycles</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-title">Technologies Used</div>
+          <div class="tech-grid">
+            <span class="tech-tag">DistilBERT</span><span class="tech-tag">Hugging Face</span>
+            <span class="tech-tag">LoRA</span><span class="tech-tag">PEFT</span>
+            <span class="tech-tag">NLTK</span><span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Python</span><span class="tech-tag">Transformers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-band">
+        <div class="impact-icon">💡</div>
+        <div class="impact-text">
+          <div class="impact-label">Impact</div>
+          <div class="impact-body">Demonstrates <strong>efficient transformer fine-tuning for real-world NLP</strong> — showing how modern language models can be optimized using LoRA for sentiment analysis while keeping compute requirements low, a critical skill for production AI deployment.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<footer id="page-footer">
+  <p>© 2025 Aakash Udai · AI Engineer & Full Stack Developer</p>
+  <a href="index.html" class="footer-back">← Back to Portfolio</a>
+</footer>
+
+<a href="#" id="back-top">↑</a>
+
+<script>
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress-fill').style.width = (window.scrollY / total * 100) + '%';
+  document.getElementById('back-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.proj-block').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.proj-block').forEach(block => {
+      block.style.display = (filter === 'all' || block.dataset.category === filter) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
