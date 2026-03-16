@@ -62,11 +62,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .btn-primary:hover { background: var(--blue2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,111,235,0.4); }
 .btn-secondary { padding: 0.8rem 1.8rem; background: transparent; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.82rem; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s; }
 .btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: white; }
-
-/* ✅ RESUME BUTTON */
 .btn-resume { padding: 0.8rem 1.8rem; background: transparent; color: #7EB3FF; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.82rem; letter-spacing: 0.05em; border: 1px solid rgba(29,111,235,0.5); border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s; }
 .btn-resume:hover { background: rgba(29,111,235,0.15); border-color: var(--blue); transform: translateY(-2px); }
-
 .hero-metrics { margin-top: 3.5rem; display: flex; gap: 2.8rem; opacity: 0; animation: heroIn 0.9s 1.2s var(--ease) forwards; }
 .metric { display: flex; flex-direction: column; gap: 0.2rem; padding-left: 1rem; border-left: 2px solid rgba(29,111,235,0.5); }
 .metric-val { font-family: 'DM Serif Display', serif; font-size: 2rem; color: white; line-height: 1; }
@@ -89,12 +86,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .about-photo-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(10,22,40,0.95)); padding: 1.5rem 1.2rem 1.2rem; }
 .about-photo-name { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: white; }
 .about-photo-sub { font-size: 0.72rem; color: var(--blue); margin-top: 0.2rem; font-weight: 500; letter-spacing: 0.05em; }
-
-/* ✅ RESUME BUTTON BELOW PHOTO */
 .about-resume-row { margin-top: 1rem; }
 .btn-resume-about { display: flex; align-items: center; justify-content: center; gap: 0.55rem; width: 100%; padding: 0.7rem 1rem; background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.8rem; letter-spacing: 0.04em; border: 1px solid rgba(29,111,235,0.4); border-radius: 6px; text-decoration: none; transition: all 0.25s; }
 .btn-resume-about:hover { background: var(--blue); border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(29,111,235,0.35); }
-
 .about-right { flex: 1; max-width: 580px; }
 .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.6rem; }
 .section-label::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
@@ -170,8 +164,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .proj-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.7; font-weight: 300; flex: 1; }
 .proj-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .pstack-tag { padding: 0.18rem 0.55rem; background: var(--cream); border: 1px solid var(--border); border-radius: 4px; font-size: 0.64rem; color: var(--muted); font-weight: 500; }
-
-/* ✅ MORE PROJECTS BUTTON */
 .projects-footer { margin-top: 1.4rem; display: flex; justify-content: center; width: 100%; }
 .btn-more-projects { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 2.2rem; background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.84rem; letter-spacing: 0.05em; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; text-decoration: none; transition: all 0.3s var(--ease); }
 .btn-more-projects:hover { background: var(--blue); border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(29,111,235,0.4); }
@@ -263,7 +255,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
     <div class="nav-dot-item" data-section="5"><div class="dot"></div><div class="dot-label">Contact</div></div>
   </div>
   <div class="sidebar-bottom">
-    <a href="mailto:aakashudai@gmail.com" class="social-icon" title="Email">✉</a>
+    <a href="mailto:aakashudai.001@gmail.com" class="social-icon" title="Email">✉</a>
     <a href="https://www.linkedin.com/in/aakash-udai-6a7b95219" target="_blank" class="social-icon" title="LinkedIn">in</a>
     <a href="tel:+919846416165" class="social-icon" title="Call">☎</a>
   </div>
@@ -281,8 +273,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="scrollToSection(4); return false;">View Projects →</a>
         <a href="#" class="btn-secondary" onclick="scrollToSection(5); return false;">Get in Touch</a>
-        <!-- ✅ RESUME DOWNLOAD -->
-        <a href="Aakash_Udai_Resume.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume">⬇ Resume</a>
+        <a href="Aakash_Udai_Resume-04-03-2026.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume">⬇ Resume</a>
       </div>
       <div class="hero-metrics">
         <div class="metric"><div class="metric-val">92%</div><div class="metric-label">CNN Accuracy</div></div>
@@ -306,18 +297,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   <section class="panel" id="about" data-index="1">
     <div class="about-left reveal">
       <div class="about-photo-wrap">
-        <!-- ✅ DIRECT IMAGE URL FIXED -->
-        <img src="Aakash-Portfolio.jpeg" alt="Aakash Udai" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <img src="Aakash-Portfolio.jpeg" alt="Aakash Udai">
         <div class="about-photo-overlay">
           <div class="about-photo-name">Aakash Udai</div>
           <div class="about-photo-sub">AI Engineer · Kerala, India</div>
         </div>
       </div>
-      <!-- ✅ RESUME BUTTON BELOW PHOTO -->
       <div class="about-resume-row">
-        <a href="Aakash_Udai_Resume-04-03-2026.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume-about">
-          ⬇ &nbsp;Download Resume
-        </a>
+        <a href="Aakash_Udai_Resume-04-03-2026.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume-about">⬇ &nbsp;Download Resume</a>
       </div>
     </div>
     <div class="about-right">
@@ -459,7 +446,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
         <div class="proj-stack"><span class="pstack-tag">DistilBERT</span><span class="pstack-tag">Hugging Face</span><span class="pstack-tag">LoRA</span><span class="pstack-tag">NLTK</span><span class="pstack-tag">Pandas</span></div>
       </div>
     </div>
-    <!-- ✅ MORE PROJECTS BUTTON -->
     <div class="projects-footer reveal">
       <a href="projects.html" class="btn-more-projects">
         View All Projects <span class="arrow">→</span>
@@ -474,8 +460,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
       <h2 class="section-heading reveal reveal-d1">Let's build something<br><em>together</em></h2>
       <p class="contact-sub reveal reveal-d2">Open to AI engineering roles, full-stack positions, freelance projects, and research collaborations. Based in Kerala — available remotely and on-site across India.</p>
       <div class="contact-info-list reveal reveal-d3">
-        <a href="/cdn-cgi/l/email-protection#84e5e5efe5f7ecf1e0e5edaab4b4b5c4e3e9e5ede8aae7ebe9" class="ci-row">
-          <div class="ci-icon">✉</div><div><div class="ci-label">Email</div><div class="ci-val"><span class="__cf_email__" data-cfemail="2b4a4a404a58435e4f4a42051b1b1a6b4c464a424705484446">[email&#160;protected]</span></div></div>
+        <a href="mailto:aakashudai.001@gmail.com" class="ci-row">
+          <div class="ci-icon">✉</div><div><div class="ci-label">Email</div><div class="ci-val">aakashudai.001@gmail.com</div></div>
         </a>
         <a href="tel:+919846416165" class="ci-row">
           <div class="ci-icon">☎</div><div><div class="ci-label">Phone</div><div class="ci-val">+91 98464 16165</div></div>
@@ -510,7 +496,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const wrap = document.getElementById('scroll-wrap');
 const panels = document.querySelectorAll('.panel');
 const navItems = document.querySelectorAll('.nav-dot-item');
@@ -522,6 +508,7 @@ function scrollToSection(i) {
 }
 navItems.forEach(item => item.addEventListener('click', () => scrollToSection(+item.dataset.section)));
 
+// ─── PROGRESS BAR + ACTIVE DOT ───────────────────
 wrap.addEventListener('scroll', () => {
   const total = wrap.scrollHeight - wrap.clientHeight;
   document.getElementById('progress-fill').style.width = (wrap.scrollTop / total * 100) + '%';
@@ -536,10 +523,7 @@ wrap.addEventListener('scroll', () => {
     }
   });
 
-  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.88) el.classList.add('visible');
-  });
-
+  // Timeline animation
   const tlPanel = document.getElementById('timeline');
   if (tlPanel && tlPanel.getBoundingClientRect().top < window.innerHeight * 0.6 && !tlAnimated) {
     tlAnimated = true;
@@ -547,12 +531,30 @@ wrap.addEventListener('scroll', () => {
     document.querySelectorAll('.tl-card').forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 200 + 300));
   }
 
+  // Skill bars animation
   const skPanel = document.getElementById('skills');
   if (skPanel && skPanel.getBoundingClientRect().top < window.innerHeight * 0.7 && !skillsAnimated) {
-    skillsAnimated = true; animateBars();
+    skillsAnimated = true;
+    animateBars();
   }
 });
 
+// ─── ✅ INTERSECTION OBSERVER FOR REVEALS ─────────
+// Uses scroll-wrap as root so it works with CSS scroll snap
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, {
+  root: wrap,
+  threshold: 0.1
+});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ─── SKILL TABS ───────────────────────────────────
 document.querySelectorAll('.cat-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
@@ -561,15 +563,22 @@ document.querySelectorAll('.cat-tab').forEach(tab => {
     const panel = document.getElementById('cat-' + tab.dataset.cat);
     if (panel) {
       panel.classList.add('active');
-      panel.querySelectorAll('.skill-bar-fill').forEach(b => { b.classList.remove('animated'); void b.offsetWidth; setTimeout(() => b.classList.add('animated'), 50); });
+      panel.querySelectorAll('.skill-bar-fill').forEach(b => {
+        b.classList.remove('animated');
+        void b.offsetWidth;
+        setTimeout(() => b.classList.add('animated'), 50);
+      });
     }
   });
 });
 
 function animateBars() {
-  document.querySelectorAll('.skills-panel.active .skill-bar-fill').forEach((b, i) => setTimeout(() => b.classList.add('animated'), i * 120 + 200));
+  document.querySelectorAll('.skills-panel.active .skill-bar-fill').forEach((b, i) => {
+    setTimeout(() => b.classList.add('animated'), i * 120 + 200);
+  });
 }
 
+// ─── CONTACT FORM ─────────────────────────────────
 async function handleSubmit() {
   const btn = document.getElementById('submit-btn');
   const name = document.getElementById('f-name').value.trim();
@@ -595,4 +604,9 @@ async function handleSubmit() {
     } else throw new Error(data.message);
   } catch {
     btn.textContent = 'Failed — try again'; btn.style.background = '#dc2626'; btn.disabled = false;
-    setTimeout(() => { btn.textContent = 'Sen
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
+  }
+}
+</script>
+</body>
+</html>
