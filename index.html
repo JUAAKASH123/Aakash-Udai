@@ -22,8 +22,8 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size: 16px; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow: hidden; height: 100vh; }
+html { font-size: 16px; max-width: 100%; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow: hidden; height: 100vh; max-width: 100%; }
 
 /* SIDEBAR */
 #sidebar { position: fixed; left: 0; top: 0; width: var(--sidebar-w); height: 100vh; background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 2rem 0; z-index: 200; }
@@ -218,29 +218,223 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 @media (max-width: 900px) {
   :root { --sidebar-w: 0px; }
   #sidebar { display: none; }
-  body { overflow: hidden; }
-  #scroll-wrap { margin-left: 0; }
-  #hero { padding: 5rem 5% 3rem; flex-direction: column; justify-content: center; }
+  body { overflow: hidden; overflow-x: hidden; }
+  #scroll-wrap { margin-left: 0; overflow-x: hidden; }
+
+  /* HERO */
+  #hero { padding: 5rem 6% 3rem; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 1.5rem; overflow: hidden; }
   #hero::after { display: none; }
-  .hero-card { position: static; width: 100%; margin-top: 2rem; }
-  .hero-metrics { gap: 1.5rem; }
-  #about { flex-direction: column; padding: 4rem 5%; }
-  .about-left { flex: none; width: 100%; max-width: 260px; }
-  .about-photo-wrap { max-height: 280px; }
+  .hero-left { width: 100%; max-width: 100%; flex: none; }
+  .hero-eyebrow { font-size: 0.62rem; padding: 0.3rem 0.65rem; white-space: normal; max-width: 100%; }
+  .hero-name { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+  .hero-title { font-size: 0.95rem; }
+  .hero-desc { font-size: 0.85rem; max-width: 100%; }
+  .hero-actions { gap: 0.7rem; }
+  .btn-primary, .btn-secondary, .btn-resume { padding: 0.7rem 1.2rem; font-size: 0.78rem; }
+  .hero-metrics { gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem; }
+  .metric { padding-left: 0.7rem; }
+  .metric-val { font-size: 1.5rem; }
+  .hero-card { position: static; width: 100%; margin-top: 0; }
+  .hero-card-inner { padding: 1.2rem; }
+
+  /* ABOUT */
+  #about { flex-direction: column; padding: 4rem 6%; gap: 2rem; align-items: flex-start; }
+  .about-left { flex: none; width: 100%; max-width: 100%; }
+  .about-photo-wrap { max-height: 260px; aspect-ratio: auto; height: 260px; }
+  .about-right { max-width: 100%; }
+
+  /* TIMELINE */
   #timeline { padding: 4rem 5%; }
-  .tl-col.left { padding-right: 1.5rem; }
-  .tl-col.right { padding-left: 1.5rem; }
-  .tl-card { max-width: 200px; }
-  #skills { flex-direction: column; padding: 4rem 5%; gap: 2rem; }
+  .tl-col.left { padding-right: 1.2rem; }
+  .tl-col.right { padding-left: 1.2rem; }
+  .tl-card { max-width: 170px; padding: 1rem 1.1rem; }
+  .tl-title { font-size: 0.88rem; }
+  .tl-org { font-size: 0.7rem; }
+  .tl-desc { font-size: 0.72rem; }
+
+  /* SKILLS */
+  #skills { flex-direction: column; padding: 4rem 6%; gap: 2rem; }
   .skills-left { flex: none; width: 100%; }
   .skills-category-tabs { flex-direction: row; flex-wrap: wrap; }
-  #projects { padding: 4rem 5%; }
+
+  /* PROJECTS */
+  #projects { padding: 4rem 6%; }
   .projects-grid { grid-template-columns: 1fr; max-height: none; overflow-y: auto; }
-  #contact { flex-direction: column; padding: 4rem 5%; overflow-y: auto; }
+  .projects-header { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+
+  /* CONTACT */
+  #contact { flex-direction: column; padding: 4rem 6%; overflow-y: auto; gap: 2.5rem; }
+  .contact-left, .contact-right { max-width: 100%; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* MOBILE NAV */
+#mobile-nav { display: none; }
+@media (max-width: 900px) {
+  #mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(10,22,40,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    z-index: 500;
+  }
+  #mobile-nav .mn-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: white;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  #mobile-nav .mn-logo span { color: var(--blue); }
+  #hamburger {
+    width: 38px; height: 38px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5px; cursor: pointer;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 0;
+  }
+  #hamburger span {
+    display: block; width: 18px; height: 2px;
+    background: white; border-radius: 2px;
+    transition: all 0.3s var(--ease);
+    transform-origin: center;
+  }
+  #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* OVERLAY */
+  #nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,22,40,0.99);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 495;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  #nav-overlay.open {
+    display: flex;
+    opacity: 1;
+  }
+  .mn-close-row {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .mn-close-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+  .mn-close-logo span { color: var(--blue); }
+  .mn-close-btn {
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: white; font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .mn-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+  .mn-item {
+    width: 100%;
+    text-align: center;
+    padding: 1.3rem 6%;
+    font-size: 1.4rem;
+    font-family: 'DM Serif Display', serif;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s, background 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .mn-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .mn-item:hover { color: white; background: rgba(29,111,235,0.1); }
+  .mn-item.active { color: var(--blue); background: rgba(29,111,235,0.08); }
+  .mn-socials {
+    display: flex; gap: 1rem; margin-top: 2.5rem; padding: 0 6%;
+  }
+  .mn-social-btn {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem; font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .mn-social-btn:hover { background: var(--blue); border-color: var(--blue); color: white; }
+
+  /* push panels down on mobile so content isn't hidden behind topbar */
+  #scroll-wrap { padding-top: 0; }
+  .panel { padding-top: 56px; }
+  #hero { padding-top: 5rem; }
 }
 </style>
 </head>
 <body>
+
+
+<!-- MOBILE NAV -->
+<nav id="mobile-nav">
+  <a class="mn-logo">AK<span>.</span></a>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="nav-overlay">
+  <div class="mn-close-row">
+    <span class="mn-close-logo">AK<span>.</span></span>
+    <div class="mn-close-btn" onclick="toggleMenu()">✕</div>
+  </div>
+  <div class="mn-links">
+    <div class="mn-item active" data-section="0" onclick="mobileNav(0)">Home</div>
+    <div class="mn-item" data-section="1" onclick="mobileNav(1)">About</div>
+    <div class="mn-item" data-section="2" onclick="mobileNav(2)">Journey</div>
+    <div class="mn-item" data-section="3" onclick="mobileNav(3)">Skills</div>
+    <div class="mn-item" data-section="4" onclick="mobileNav(4)">Work</div>
+    <div class="mn-item" data-section="5" onclick="mobileNav(5)">Contact</div>
+  </div>
+  <div class="mn-socials">
+    <a href="mailto:aakashudai.001@gmail.com" class="mn-social-btn" title="Email">✉</a>
+    <a href="https://www.linkedin.com/in/aakash-udai-6a7b95219" target="_blank" class="mn-social-btn" title="LinkedIn">in</a>
+    <a href="tel:+919846416165" class="mn-social-btn" title="Call">☎</a>
+  </div>
+</div>
 
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
@@ -273,7 +467,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="scrollToSection(4); return false;">View Projects →</a>
         <a href="#" class="btn-secondary" onclick="scrollToSection(5); return false;">Get in Touch</a>
-        <a href="Aakash_Udai_Resume-04-03-2026.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume">⬇ Resume</a>
+
       </div>
       <div class="hero-metrics">
         <div class="metric"><div class="metric-val">92%</div><div class="metric-label">CNN Accuracy</div></div>
@@ -303,9 +497,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
           <div class="about-photo-sub">AI Engineer · Kerala, India</div>
         </div>
       </div>
-      <div class="about-resume-row">
-        <a href="Aakash_Udai_Resume-04-03-2026.pdf" download="Aakash_Udai_Resume.pdf" class="btn-resume-about">⬇ &nbsp;Download Resume</a>
-      </div>
+
     </div>
     <div class="about-right">
       <div class="section-label reveal">About</div>
@@ -607,6 +799,43 @@ async function handleSubmit() {
     setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
   }
 }
+
+// ─── MOBILE NAV ───────────────────────────────────
+function toggleMenu() {
+  const overlay = document.getElementById('nav-overlay');
+  const burger = document.getElementById('hamburger');
+  const isOpen = overlay.classList.contains('open');
+  if (isOpen) {
+    overlay.classList.remove('open');
+    burger.classList.remove('open');
+  } else {
+    overlay.classList.add('open');
+    burger.classList.add('open');
+  }
+}
+
+function mobileNav(i) {
+  scrollToSection(i);
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  // update active state
+  document.querySelectorAll('.mn-item').forEach(el => {
+    el.classList.toggle('active', +el.dataset.section === i);
+  });
+}
+
+// sync mobile active item with scroll
+wrap.addEventListener('scroll', () => {
+  panels.forEach((p, i) => {
+    const r = p.getBoundingClientRect();
+    if (r.top <= wrap.clientHeight / 2 && r.bottom >= wrap.clientHeight / 2) {
+      document.querySelectorAll('.mn-item').forEach(el => {
+        el.classList.toggle('active', +el.dataset.section === i);
+      });
+    }
+  });
+});
+
 </script>
 </body>
 </html>
